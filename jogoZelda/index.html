@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo com Prompt Personalizado</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <p>Comece o jogo!</p>
+    <button onclick="iniciarJogo()">Iniciar Jogo</button>
+
+    <div id="customPrompt">
+        <p id="promptMessage"></p>
+        <input type="text" id="userInput" placeholder="Digite sua resposta">
+        <button onclick="confirmar()">Confirmar</button>
+    </div>
+
+    <audio id="promptAudio" src="audio.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
