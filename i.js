@@ -28,7 +28,7 @@ for(let i = 0; i <numeros.length; i++){
     soma += numeros[i]
     console.log(`soma depois: ${soma}`)
 }
-console.log(`resultado final ${soma}`)*/
+console.log(`resultado final ${soma}`)
 
 
 
@@ -43,13 +43,15 @@ for(let i = 0; i <numeros.length; i++){
     somaPares += numeros[i]
 }
 console.log(`resultado final ${somaPares}`)
-
+*/
+// exercicio 2:
 
 function jogoPontuação(jogadas){
     let pontuacao = 0
 
     for(let i = 0; i <=jogadas.length; i++){
-        if(jogadas[i]=== 'ganhou'){
+        if(jogadas[i]===0 )
+            console.log('ganhou'){
             pontuacao +=3
         } else if(jogadas[i]=== 'empatou'){
 
