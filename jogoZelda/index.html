@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo com Prompt Personalizado</title>
+    <title>Jogo ZELDA</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>Comece o jogo!</p>
-    <button onclick="iniciarJogo()">Iniciar Jogo</button>
+    <p>Bem Vindos a ZELDA</p>
+    <button onclick="iniciarJogo()">START</button>
+    <button onclick='criarPersonagem()'>OK</button>
 
-    <div id="customPrompt">
-        <p id="promptMessage"></p>
-        <input type="text" id="userInput" placeholder="Digite sua resposta">
-        <button onclick="confirmar()">Confirmar</button>
-    </div>
+    <audio id="musica" loop>
+        <source src="Bulgarian folklor- Kaval sviri.mp3" type="audio/mpeg">
+    </audio>
 
-    <audio id="promptAudio" src="b" preload="auto"></audio>
-
-    <script src="script.js"></script>
+    <div id="customPrompt"></div>
+    
+    <script src="./script.js"></script>
 </body>
 </html>

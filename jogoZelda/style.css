@@ -1,5 +1,5 @@
 body {
-    background-image: url('image.jpg'); /* Coloque o caminho da sua imagem aqui */
+    background-image: url('image.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -27,7 +27,7 @@ body {
 }
 
 button {
-    background-color: rgba(0, 123, 255, 0.7);
+    background-color: rgba(72, 109, 255, 0.7);
     color: white;
     border: none;
     padding: 15px 30px;
@@ -38,5 +38,5 @@ button {
 }
 
 button:hover {
-    background-color: rgba(0, 123, 255, 1);
+    background-color: rgb(143, 181, 221);
 }

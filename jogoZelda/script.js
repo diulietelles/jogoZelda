@@ -1,132 +1,97 @@
 let personagens = [];
 let armas = [];
 let itens = [];
-let etapaAtual = 0;
 
-// Função para iniciar o jogo
 function iniciarJogo() {
-    etapaAtual = 0;
-    console.log("Jogo iniciado!"); // Mensagem de início do jogo
-    menu(); // Chama o menu ao iniciar o jogo
+    alert("O jogo começou! Vamos criar seu personagem.");
+    criarPersonagem();
 }
 
-// Função para exibir o menu
+function criarPersonagem() {
+    let personagem = {
+        nome: prompt('Qual nome do seu personagem?'),
+        vida: Number(prompt('Quanto de vida seu personagem vai ter?')),
+        ataque: Number(prompt('Quanto de ataque seu personagem vai ter?')),
+        defesa: Number(prompt('Quanto de defesa seu personagem vai ter?'))
+    };
+    
+    validarPersonagem(personagem);
+}
+
+function validarPersonagem(personagem) {
+    // Validar nome
+    while (personagem.nome.length < 3 || personagem.nome.length > 20) {
+        if (personagem.nome.length < 3) {
+            alert('Nome de personagem muito curto...');
+            personagem.nome = prompt('Qual nome do seu personagem?');
+        } else {
+            alert('Que nome grandão, prefiro menores...');
+            personagem.nome = prompt('Qual nome do seu personagem?');       
+        }
+    }
+
+    // Validar vida
+    while (personagem.vida < 1 || personagem.vida > 20) {
+        if (personagem.vida < 1) {
+            alert('Poucos corações de vida, tente um número maior...');
+            personagem.vida = Number(prompt('Quanto de vida seu personagem vai ter?'));
+        } else {
+            alert('Muitos corações de vida, tente um número menor...');
+            personagem.vida = Number(prompt('Quanto de vida seu personagem vai ter?'));    
+        }
+    }
+
+    // Validar ataque
+    while (personagem.ataque < 1 || personagem.ataque > 15) {
+        if (personagem.ataque < 1) {
+            alert('Dano de ataque muito baixo, tente um ataque maior...');
+            personagem.ataque = Number(prompt('Quanto de ataque seu personagem vai ter?'));
+        } else {
+            alert('Dano de ataque inicial muito alto, tente um número menor...');
+            personagem.ataque = Number(prompt('Quanto de ataque seu personagem vai ter?'));
+        }
+    }
+
+    // Validar defesa
+    while (personagem.defesa < 1 || personagem.defesa > 10) {
+        if (personagem.defesa < 1) {
+            alert('Defesa muito baixa, tente um valor mais alto...');
+            personagem.defesa = Number(prompt('Quanto de defesa seu personagem vai ter?'));
+        } else {
+            alert('Defesa muito alta, tente um valor menor...');
+            personagem.defesa = Number(prompt('Quanto de defesa seu personagem vai ter?'));
+        }
+    }
+
+    personagens.push(personagem);
+    personagens.sort((a, b) => a.nome.localeCompare(b.nome));
+    console.log(personagens);
+}
+
 function menu() {
-    let opcao = prompt("Menu:\n1. Coletar Personagens\n2. Coletar Armas\n3. Coletar Itens\n4. Validar Dados\n5. Sair");
+    let option;
+    do {
+        option = prompt("Selecione uma opção:\n1. Criar Personagem\n2. Listar Personagens\n3. Sair");
+        switch (option) {
+            case '1':
+                criarPersonagem();
+                break;
+            case '2':
+                listarPersonagens();
+                break;
+            case '3':
+                alert('Saindo do jogo. Até a próxima!');
+                break;
+            default:
+                alert('Opção inválida. Tente novamente.');
+        }
+    } while (option !== '3');
+}
 
-    switch(opcao) {
-        case '1':
-            coletarPersonagens();
-            break;
-        case '2':
-            coletarArmas();
-            break;
-        case '3':
-            coletarItens();
-            break;
-        case '4':
-            validarDados();
-            break;
-        case '5':
-            console.log("Saindo do jogo.");
-            return;
-        default:
-            console.log("Opção inválida!");
-            menu();
+function listarPersonagens() {
+    if (personagens.length === 0) {
+        alert('Nenhum personagem criado ainda.');
+    } else {
+        let lista = 'Personagens:\n' + personagens.map(p => ` ${p.nome} - Vida: ${p.vida}, Ataque: ${p.ataque}, Defesa: ${p.defesa}`).join('\n');
+        alert(lista)}
     }
-}
-
-// Função para coletar dados de personagens
-function coletarPersonagens() {
-    while (personagens.length < 3) {
-        let nome = prompt("Digite o nome do personagem:");
-        let vida = parseInt(prompt("Digite os corações de vida (1 a 20):"));
-        let ataque = parseInt(prompt("Digite o valor de ataque:"));
-        let defesa = parseInt(prompt("Digite o valor de defesa:"));
-
-        personagens.push({ nome, vida, ataque, defesa });
-    }
-    menu();
-}
-
-// Função para coletar dados de armas
-function coletarArmas() {
-    while (armas.length < 3) {
-        let tipo = prompt("Digite o tipo da arma:");
-        let dano = parseInt(prompt("Digite o dano da arma (maior que 0):"));
-        let alcance = parseInt(prompt("Digite o alcance da arma:"));
-
-        armas.push({ tipo, dano, alcance });
-    }
-    menu();
-}
-
-// Função para coletar dados de itens
-function coletarItens() {
-    while (itens.length < 3) {
-        let nome = prompt("Digite o nome do item:");
-        let efeito = prompt("Digite o efeito do item:");
-
-        itens.push({ nome, efeito });
-    }
-    menu();
-}
-
-// Função para validar dados
-function validarDados() {
-    console.log(validarPersonagens(personagens).join('\n'));
-    console.log(validarArmas(armas).join('\n'));
-    console.log(validarItens(itens).join('\n'));
-    menu();
-}
-
-// Função para validar personagens
-function validarPersonagens(personagens) {
-    let mensagens = [];
-    personagens.forEach(personagem => {
-        if (!personagem.nome) {
-            mensagens.push("Erro: Personagem com nome inválido.");
-        }
-        if (personagem.vida < 1 || personagem.vida > 20) {
-            mensagens.push(`Erro: O personagem ${personagem.nome} tem corações de vida fora do intervalo permitido.`);
-        }
-        if (personagem.ataque <= 0 || personagem.defesa < 0) {
-            mensagens.push(`Erro: O personagem ${personagem.nome} tem valores de ataque ou defesa inválidos.`);
-        }
-    });
-    return mensagens.length > 0 ? mensagens : ["Personagens validados com sucesso!"];
-}
-
-// Função para validar armas
-function validarArmas(armas) {
-    let mensagens = [];
-    armas.forEach(arma => {
-        if (!arma.tipo) {
-            mensagens.push("Erro: Arma com tipo inválido.");
-        }
-        if (arma.dano <= 0) {
-            mensagens.push(`Erro: A arma ${arma.tipo} tem dano inválido.`);
-        }
-        if (arma.alcance < 0) {
-            mensagens.push(`Erro: A arma ${arma.tipo} tem alcance inválido.`);
-        }
-    });
-    return mensagens.length > 0 ? mensagens : ["Armas validadas com sucesso!"];
-}
-
-// Função para validar itens
-function validarItens(itens) {
-    let mensagens = [];
-    itens.forEach(item => {
-        if (!item.nome) {
-            mensagens.push("Erro: Item com nome inválido.");
-        }
-        if (!item.efeito) {
-            mensagens.push(`Erro: Item ${item.nome} com efeito inválido.`);
-        }
-    });
-    return mensagens.length > 0 ? mensagens : ["Itens validados com sucesso!"];
-}
-
-// Chamada para iniciar o jogo
-iniciarJogo();
