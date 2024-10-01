@@ -1,107 +1,132 @@
-let etapaAtual = 0;
 let personagens = [];
 let armas = [];
 let itens = [];
+let etapaAtual = 0;
 
-// Iniciar o jogo
+// Função para iniciar o jogo
 function iniciarJogo() {
     etapaAtual = 0;
-    document.getElementById('customPrompt').style.display = 'block';
-    coletarPersonagens();
+    console.log("Jogo iniciado!"); // Mensagem de início do jogo
+    menu(); // Chama o menu ao iniciar o jogo
 }
 
-// Coletar dados de personagens
-function coletarPersonagens() {
-    if (etapaAtual < 3) {
-        document.getElementById('promptMessage').innerText = `Digite o nome do personagem ${etapaAtual + 1}:`;
-        document.getElementById('userInput').value = '';
-        document.getElementById('userInput').focus();
-    } else {
-        validarDados();
-    }
-}
+// Função para exibir o menu
+function menu() {
+    let opcao = prompt("Menu:\n1. Coletar Personagens\n2. Coletar Armas\n3. Coletar Itens\n4. Validar Dados\n5. Sair");
 
-// Coletar dados de armas
-function coletarArmas() {
-    if (etapaAtual < 3) {
-        document.getElementById('promptMessage').innerText = `Digite o tipo da arma ${etapaAtual + 1}:`;
-        document.getElementById('userInput').value = '';
-        document.getElementById('userInput').focus();
-    } else {
-        validarDados();
-    }
-}
-
-// Coletar dados de itens
-function coletarItens() {
-    if (etapaAtual < 3) {
-        document.getElementById('promptMessage').innerText = `Digite o nome do item ${etapaAtual + 1}:`;
-        document.getElementById('userInput').value = '';
-        document.getElementById('userInput').focus();
-    } else {
-        validarDados();
-    }
-}
-
-// Confirmar entrada do usuário
-function confirmar() {
-    const userInput = document.getElementById('userInput').value;
-
-    if (etapaAtual < 3) {
-        if (personagens.length < 3) {
-            personagens.push({ nome: userInput });
-            etapaAtual++;
+    switch(opcao) {
+        case '1':
             coletarPersonagens();
-        } else if (armas.length < 3) {
-            armas.push({ tipo: userInput });
-            etapaAtual++;
+            break;
+        case '2':
             coletarArmas();
-        } else {
-            itens.push({ nome: userInput });
-            etapaAtual++;
+            break;
+        case '3':
             coletarItens();
-        }
-    } else {
-        document.getElementById('customPrompt').style.display = 'none';
-        validarDados();
+            break;
+        case '4':
+            validarDados();
+            break;
+        case '5':
+            console.log("Saindo do jogo.");
+            return;
+        default:
+            console.log("Opção inválida!");
+            menu();
     }
 }
 
-// Validar dados
+// Função para coletar dados de personagens
+function coletarPersonagens() {
+    while (personagens.length < 3) {
+        let nome = prompt("Digite o nome do personagem:");
+        let vida = parseInt(prompt("Digite os corações de vida (1 a 20):"));
+        let ataque = parseInt(prompt("Digite o valor de ataque:"));
+        let defesa = parseInt(prompt("Digite o valor de defesa:"));
+
+        personagens.push({ nome, vida, ataque, defesa });
+    }
+    menu();
+}
+
+// Função para coletar dados de armas
+function coletarArmas() {
+    while (armas.length < 3) {
+        let tipo = prompt("Digite o tipo da arma:");
+        let dano = parseInt(prompt("Digite o dano da arma (maior que 0):"));
+        let alcance = parseInt(prompt("Digite o alcance da arma:"));
+
+        armas.push({ tipo, dano, alcance });
+    }
+    menu();
+}
+
+// Função para coletar dados de itens
+function coletarItens() {
+    while (itens.length < 3) {
+        let nome = prompt("Digite o nome do item:");
+        let efeito = prompt("Digite o efeito do item:");
+
+        itens.push({ nome, efeito });
+    }
+    menu();
+}
+
+// Função para validar dados
 function validarDados() {
     console.log(validarPersonagens(personagens).join('\n'));
     console.log(validarArmas(armas).join('\n'));
     console.log(validarItens(itens).join('\n'));
+    menu();
 }
 
-// Funções de validação
+// Função para validar personagens
 function validarPersonagens(personagens) {
     let mensagens = [];
     personagens.forEach(personagem => {
         if (!personagem.nome) {
-            mensagens.push(`Erro: Personagem com nome inválido.`);
+            mensagens.push("Erro: Personagem com nome inválido.");
         }
-        // Adicione a lógica de vida, ataque e defesa se necessário
+        if (personagem.vida < 1 || personagem.vida > 20) {
+            mensagens.push(`Erro: O personagem ${personagem.nome} tem corações de vida fora do intervalo permitido.`);
+        }
+        if (personagem.ataque <= 0 || personagem.defesa < 0) {
+            mensagens.push(`Erro: O personagem ${personagem.nome} tem valores de ataque ou defesa inválidos.`);
+        }
     });
     return mensagens.length > 0 ? mensagens : ["Personagens validados com sucesso!"];
 }
 
+// Função para validar armas
 function validarArmas(armas) {
     let mensagens = [];
     armas.forEach(arma => {
         if (!arma.tipo) {
-            mensagens.push(`Erro: Arma com tipo inválido.`);
+            mensagens.push("Erro: Arma com tipo inválido.");
+        }
+        if (arma.dano <= 0) {
+            mensagens.push(`Erro: A arma ${arma.tipo} tem dano inválido.`);
+        }
+        if (arma.alcance < 0) {
+            mensagens.push(`Erro: A arma ${arma.tipo} tem alcance inválido.`);
         }
     });
     return mensagens.length > 0 ? mensagens : ["Armas validadas com sucesso!"];
 }
 
+// Função para validar itens
 function validarItens(itens) {
     let mensagens = [];
     itens.forEach(item => {
         if (!item.nome) {
-            mensagens.push(`Erro: Item com nome inválido.`);
+            mensagens.push("Erro: Item com nome inválido.");
+        }
+        if (!item.efeito) {
+            mensagens.push(`Erro: Item ${item.nome} com efeito inválido.`);
         }
     });
     return mensagens.length > 0 ? mensagens : ["Itens validados com sucesso!"];
 }
+
+// Chamada para iniciar o jogo
+iniciarJogo();
