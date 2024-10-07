@@ -26,14 +26,15 @@ function criarPersonagem() {
 }
 
 function validarPersonagem(personagem) {
-    while (personagem.nome.length < 3 || personagem.nome.length > 20) {
+    while (personagem.nome.length < 3 || personagem.nome.length > 20 || !ehSomenteLetras(personagem.nome)) {
         if (personagem.nome.length < 3) {
             alert('Nome de personagem muito curto...');
-            personagem.nome = prompt('Qual nome do seu personagem?');
-        } else {
+        } else if (personagem.nome.length > 20) {
             alert('Que nome grandão, prefiro menores...');
-            personagem.nome = prompt('Qual nome do seu personagem?');
+        } else {
+            alert('O nome deve conter apenas letras.');
         }
+        personagem.nome = prompt('Qual nome do seu personagem?');
     }
 
     while (personagem.vida < 1 || personagem.vida > 20) {
@@ -45,7 +46,16 @@ function validarPersonagem(personagem) {
             personagem.vida = Number(prompt('Quanto de vida seu personagem vai ter?'));
         }
     }
-
+    function ehSomenteLetras(nome) {
+    for (let i = 0; i < nome.length; i++) {
+        const char = nome[i];
+        // Verifica se o caractere não está entre A-Z e a-z
+        if (!(char >= 'A' && char <= 'Z') && !(char >= 'a' && char <= 'z') && char !== ' ') {
+            return false;
+        }
+    }
+    return true;
+}
     while (personagem.ataque < 1 || personagem.ataque > 15) {
         if (personagem.ataque < 1) {
             alert('Dano de ataque muito baixo, tente um ataque maior...');
