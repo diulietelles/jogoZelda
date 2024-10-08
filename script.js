@@ -1,133 +1,142 @@
-let personagens = []
-let armas = []
-let itens = []
-// Declara arrays vazios para armazenar 
+et personagens = [];
+let armas = [];
+let itens = [];
 
-document.getElementById("createCharacterButton").onclick = criarPersonagem // chama a função criarPersonagem
-document.getElementById("listCharactersButton").onclick = listarPersonagens //chama a função listarPersonagens
-document.getElementById("exitButton").onclick = () => alert('Saindo do jogo. Até a próxima!') //jogador está saindo do jogo
 
-// // funcao inicia o jogo, exibe uma mensagem de início e chama o menu 
+document.getElementById("createCharacterButton").onclick = criarPersonagem;
+document.getElementById("listCharactersButton").onclick = listarPersonagens;
+document.getElementById("exitButton").onclick = () => alert('Saindo do jogo. Até a próxima!');
+
 function iniciarJogo() {
-    alert("O jogo começou! Vamos criar seu personagem.")
-    menu()
+    alert("O jogo começou! Vamos criar seu personagem.");
+    menu();
 }
 
-// funcao para criar um personagem, armazenando dados como um objeto
 function criarPersonagem() {
     let personagem = {
         nome: prompt('Qual nome do seu personagem?'),
         vida: Number(prompt('Quanto de vida seu personagem vai ter?')),
         ataque: Number(prompt('Quanto de ataque seu personagem vai ter?')),
         defesa: Number(prompt('Quanto de defesa seu personagem vai ter?')),
-    }
-    
-    validarPersonagem(personagem)
-    adicionarImagemPersonagem(personagem) // uncao para adicionar a imagem do personagem na interface
+  
+    };
+
+    validarPersonagem(personagem);
+    adicionarImagemPersonagem(personagem); // Função para adicionar a imagem
 }
 
- // funcao que valida os dados do personagem 
 function validarPersonagem(personagem) {
-   while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) {
-        // verifica se o nome do personagem é válido, entre 3 e 20 caracteres e apenas letras
+    while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) {
         if (personagem.nome.length < 3) {
-            alert('Nome de personagem muito curto...')
+            alert('Nome de personagem muito curto...');
         } else if (personagem.nome.length > 20) {
-            alert('Que nome grandão, prefiro menores...')
+            alert('Que nome grandão, prefiro menores...');
         } else {
-            alert('O nome deve conter apenas letras.')
+            alert('O nome deve conter apenas letras.');
         }
-        personagem.nome = prompt('Qual nome do seu personagem?')
-        // caso não seja válido, solicita que o usuario digite novamente
+        personagem.nome = prompt('Qual nome do seu personagem?');
     }
-
+    function validarPersonagem(personagem) {
+        while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) {
+            if (personagem.nome.length < 3) {
+                alert('Nome de personagem muito curto...');
+            } else if (personagem.nome.length > 20) {
+                alert('Que nome grandão, prefiro menores...');
+            } else {
+                alert('O nome deve conter apenas letras.');
+            }
+            personagem.nome = prompt('Qual nome do seu personagem?');
+        }
+    }
     while (personagem.vida < 1 || personagem.vida > 20) {
-        //  se o valor da vida está entre 1 e 20, caso nao esteja, solicita de novo um valor
         if (personagem.vida < 1) {
-            alert('Poucos corações de vida, tente um número maior...')
+            alert('Poucos corações de vida, tente um número maior...');
+            personagem.vida = Number(prompt('Quanto de vida seu personagem vai ter?'));
         } else {
-            alert('Muitos corações de vida, tente um número menor...')
+            alert('Muitos corações de vida, tente um número menor...');
+            personagem.vida = Number(prompt('Quanto de vida seu personagem vai ter?'));
         }
-        personagem.vida = Number(prompt('Quanto de vida seu personagem vai ter?'))
     }
-
-    while (personagem.ataque < 1 || personagem.ataque > 15) {
-        // se o valor de ataque está entre 1 e 15, caso não esteja, solicita novo valor
-        if (personagem.ataque < 1) {
-            alert('Dano de ataque muito baixo, tente um ataque maior...')
-        } else {
-            alert('Dano de ataque inicial muito alto, tente um número menor...')
+    function ehSomenteLetras(nome) {
+    for (let i = 0; i < nome.length; i++) {
+        const crt = nome[i];
+        // Verifica se o caractere não está entre A-Z e a-z
+        if (!(crt >= 'A' && crt <= 'Z') && !(crt >= 'a' && crt <= 'z') && crt !== ' ') {
+            return false;
         }
-        personagem.ataque = Number(prompt('Quanto de ataque seu personagem vai ter?'))
+    }
+    return true;
+}
+    while (personagem.ataque < 1 || personagem.ataque > 15) {
+        if (personagem.ataque < 1) {
+            alert('Dano de ataque muito baixo, tente um ataque maior...');
+            personagem.ataque = Number(prompt('Quanto de ataque seu personagem vai ter?'));
+        } else {
+            alert('Dano de ataque inicial muito alto, tente um número menor...');
+            personagem.ataque = Number(prompt('Quanto de ataque seu personagem vai ter?'));
+        }
     }
 
     while (personagem.defesa < 1 || personagem.defesa > 11) {
-        // se o valor de defesa está entre 1 e 11, caso não esteja, solicita novo
         if (personagem.defesa < 1) {
-            alert('Defesa muito baixa, tente um valor mais alto...')
+            alert('Defesa muito baixa, tente um valor mais alto...');
+            personagem.defesa = Number(prompt('Quanto de defesa seu personagem vai ter?'));
         } else {
-            alert('Defesa muito alta, tente um valor menor...')
+            alert('Defesa muito alta, tente um valor menor...');
+            personagem.defesa = Number(prompt('Quanto de defesa seu personagem vai ter?'));
         }
-        personagem.defesa = Number(prompt('Quanto de defesa seu personagem vai ter?'))
     }
 
-    personagens.push(personagem)
-    personagens.sort((a, b) => a.nome.localeCompare(b.nome))
-    // add o personagem validado ao array de personagens e em ordem alfabética pelo nome
-    console.log(personagens)
+    personagens.push(personagem);
+    personagens.sort((a, b) => a.nome.localeCompare(b.nome));
+    console.log(personagens);
 }
 
 function adicionarImagemPersonagem(personagem) {
-    const container = document.getElementById('personagens_imagens')
-    const personagemDiv = document.createElement('div')
-    personagemDiv.classList.add('personagem')
-    // cria uma nova div para o personagem e adiciona a classe personagem
+    const container = document.getElementById('personagens_imagens');
+    const personagemDiv = document.createElement('div');
+    personagemDiv.classList.add('personagem');
 
     const img = document.createElement('img');
-    img.src = personagem.imagem; // imagem do personagem
-    img.alt = personagem.nome;    // texto alternativo com o nome do personagem
-    img.width = 100;              // largura da imagem
-    img.height = 100;             // altura da imagem
+    img.src = personagem.imagem; // URL da imagem fornecida
+    img.alt = personagem.nome;    // Nome do personagem como texto alternativo
+    img.width = 100;              // Tamanho da imagem
+    img.height = 100;
 
     const info = document.createElement('p');
-    info.textContent = `${personagem.nome} - Vida: ${personagem.vida}, Ataque: ${personagem.ataque}, Defesa: ${personagem.defesa}`;
-    // parágrafo com as informações do personagem
+    info.textContent = ${personagem.nome} - Vida: ${personagem.vida}, Ataque: ${personagem.ataque}, Defesa: ${personagem.defesa};
 
     personagemDiv.appendChild(img);
     personagemDiv.appendChild(info);
     container.appendChild(personagemDiv);
-    // add a imagem e as informaçoes do personagem div e depois ao container na pagina
 }
 
 function menu() {
-    let option
+    let option;
     do {
         option = prompt("Selecione uma opção:\n1. Criar Personagem\n2. Listar Personagens\n3. Sair");
-        //  um menu de opções para o usuario
-
         switch (option) {
             case '1':
-                criarPersonagem()
-                break
+                criarPersonagem();
+                break;
             case '2':
-                listarPersonagens()
-                break
+                listarPersonagens();
+                break;
             case '3':
-                alert('Saindo do jogo. Até a próxima!')
-                break
+                alert('Saindo do jogo. Até a próxima!');
+                break;
             default:
-                alert('Opção inválida. Tente novamente.')
+                alert('Opção inválida. Tente novamente.');
         }
-    } while (option !== '3')
-    // menu em loop ate que o usuario escolha  sair
+    } while (option !== '3');
 }
 
 function listarPersonagens() {
     if (personagens.length === 0) {
-        alert('Nenhum personagem criado ainda.')
+        alert('Nenhum personagem criado ainda.');
     } else {
-        let lista = 'Personagens:\n' + personagens.map(p => ` ${p.nome} - Vida: ${p.vida}, Ataque: ${p.ataque}, Defesa: ${p.defesa}`).join('\n');
-        alert(lista)
+        let lista = 'Personagens:\n' + personagens.map(p =>  ${p.nome} - Vida: ${p.vida}, Ataque: ${p.ataque}, Defesa: ${p.defesa}).join('\n');
+        alert(lista);
     }
-    //lista de personagens criados, se nenhum personagem foi criado, exibe uma mensagem avisando
 }
+
