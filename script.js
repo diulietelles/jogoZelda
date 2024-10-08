@@ -53,17 +53,7 @@ function validarPersonagem(personagem) {
         // Solicita ao usuário que insira um novo nome para o personagem
     }
 }
-    function validarPersonagem(personagem) {
-        while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) {
-            if (personagem.nome.length < 3) {
-                alert('Nome de personagem muito curto...');
-            } else if (personagem.nome.length > 20) {
-                alert('Que nome grandão, prefiro menores...');
-            } else {
-                alert('O nome deve conter apenas letras.');
-            }
-            personagem.nome = prompt('Qual nome do seu personagem?');
-        }
+
     }
     while (personagem.vida < 1 || personagem.vida > 20) {
         if (personagem.vida < 1) {
