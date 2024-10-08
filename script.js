@@ -1,15 +1,15 @@
-let personagens = []
-let armas = []
-let itens = []
+let personagens = [];
+let armas = [];
+let itens = [];
 
 
-document.getElementById("createCharacterButton").onclick = criarPersonagem
-document.getElementById("listCharactersButton").onclick = listarPersonagens
-document.getElementById("exitButton").onclick = () => alert('Saindo do jogo. Até a próxima!')
+document.getElementById("createCharacterButton").onclick = criarPersonagem;
+document.getElementById("listCharactersButton").onclick = listarPersonagens;
+document.getElementById("exitButton").onclick = () => alert('Saindo do jogo. Até a próxima!');
 
 function iniciarJogo() {
     alert("O jogo começou! Vamos criar seu personagem.");
-    menu()
+    menu();
 }
 
 function criarPersonagem() {
@@ -19,41 +19,34 @@ function criarPersonagem() {
         ataque: Number(prompt('Quanto de ataque seu personagem vai ter?')),
         defesa: Number(prompt('Quanto de defesa seu personagem vai ter?')),
   
-    }
+    };
 
     validarPersonagem(personagem);
-    adicionarImagemPersonagem(personagem) // Função para adicionar a imagem
+    adicionarImagemPersonagem(personagem); // Função para adicionar a imagem
 }
 
-function validarPersonagem(personagem) { 
-    // Função para validar o nome do personagem
-    while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) { 
-        // Enquanto o nome do personagem for menor que 3 caracteres, maior que 20 ou contiver algo que não seja letra, o loop continua
-
-        if (personagem.nome.length < 3) { 
-            // Se o nome tiver menos de 3 caracteres
-
-            alert('Nome de personagem muito curto...'); 
-            // Exibe uma mensagem de alerta avisando que o nome é muito curto
-
-        } else if (personagem.nome.length > 20) { 
-            // Se o nome tiver mais de 20 caracteres
-
-            alert('Que nome grandão, prefiro menores...'); 
-            // Exibe uma mensagem avisando que o nome é muito grande
-
-        } else { 
-            // Se o nome não contiver apenas letras
-
-            alert('O nome deve conter apenas letras.'); 
-            // Exibe um alerta informando que o nome deve conter apenas letras
+function validarPersonagem(personagem) {
+    while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) {
+        if (personagem.nome.length < 3) {
+            alert('Nome de personagem muito curto...');
+        } else if (personagem.nome.length > 20) {
+            alert('Que nome grandão, prefiro menores...');
+        } else {
+            alert('O nome deve conter apenas letras.');
         }
-
-        personagem.nome = prompt('Qual nome do seu personagem?'); 
-        // Solicita ao usuário que insira um novo nome para o personagem
+        personagem.nome = prompt('Qual nome do seu personagem?');
     }
-}
-
+    function validarPersonagem(personagem) {
+        while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) {
+            if (personagem.nome.length < 3) {
+                alert('Nome de personagem muito curto...');
+            } else if (personagem.nome.length > 20) {
+                alert('Que nome grandão, prefiro menores...');
+            } else {
+                alert('O nome deve conter apenas letras.');
+            }
+            personagem.nome = prompt('Qual nome do seu personagem?');
+        }
     }
     while (personagem.vida < 1 || personagem.vida > 20) {
         if (personagem.vida < 1) {
@@ -63,26 +56,16 @@ function validarPersonagem(personagem) {
             alert('Muitos corações de vida, tente um número menor...');
             personagem.vida = Number(prompt('Quanto de vida seu personagem vai ter?'));
         }
-function soLetras(nome) { 
-    // Função para verificar se o nome contém apenas letras e espaços
-
-    for (let i = 0; i < nome.length; i++) { 
-        // Laço que percorre cada caractere do nome
-
-        const crt = nome[i]; 
-        // Armazena o caractere atual na variável crt
-
-        if (!(crt >= 'A' && crt <= 'Z') && !(crt >= 'a' && crt <= 'z') && crt !== ' ') { 
-            // Verifica se o caractere não está entre 'A' e 'Z' ou entre 'a' e 'z', e se não é um espaço
-
-            return false; 
-            // Se encontrar um caractere que não seja letra ou espaço, retorna false
+    }
+    function soLetras(nome) {
+    for (let i = 0; i < nome.length; i++) {
+        const crt = nome[i];
+        // Verifica se o caractere não está entre A-Z e a-z
+        if (!(crt >= 'A' && crt <= 'Z') && !(crt >= 'a' && crt <= 'z') && crt !== ' ') {
+            return false;
         }
     }
-
-    return true; 
-    // Se todos os caracteres forem letras ou espaços, retorna true
-
+    return true;
 }
     while (personagem.ataque < 1 || personagem.ataque > 15) {
         if (personagem.ataque < 1) {
@@ -121,7 +104,7 @@ function adicionarImagemPersonagem(personagem) {
     img.height = 100;
 
     const info = document.createElement('p');
-    info.textContent = `${personagem.nome} - Vida: ${personagem.vida}, Ataque: ${personagem.ataque}, Defesa: ${personagem.defesa}`
+    info.textContent = `${personagem.nome} - Vida: ${personagem.vida}, Ataque: ${personagem.ataque}, Defesa: ${personagem.defesa}`;
 
     personagemDiv.appendChild(img);
     personagemDiv.appendChild(info);
