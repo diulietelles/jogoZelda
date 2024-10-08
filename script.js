@@ -25,10 +25,8 @@ function criarPersonagem() {
     adicionarImagemPersonagem(personagem) // Função para adicionar a imagem
 }
 
-[08:34, 08/10/2024] Diulie Telles:     validarPersonagem(pe…
-[13:34, 08/10/2024] Diulie Telles: function validarPersonagem(personagem) { 
+function validarPersonagem(personagem) { 
     // Função para validar o nome do personagem
-
     while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) { 
         // Enquanto o nome do personagem for menor que 3 caracteres, maior que 20 ou contiver algo que não seja letra, o loop continua
 
