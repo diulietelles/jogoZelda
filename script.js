@@ -1,4 +1,4 @@
-et personagens = [];
+let personagens = [];
 let armas = [];
 let itens = [];
 
@@ -135,8 +135,7 @@ function listarPersonagens() {
     if (personagens.length === 0) {
         alert('Nenhum personagem criado ainda.');
     } else {
-        let lista = 'Personagens:\n' + personagens.map(p =>  ${p.nome} - Vida: ${p.vida}, Ataque: ${p.ataque}, Defesa: ${p.defesa}).join('\n');
+        let lista = 'Personagens:\n' + personagens.map(p => ` ${p.nome} - Vida: ${p.vida}, Ataque: ${p.ataque}, Defesa: ${p.defesa}`).join('\n');
         alert(lista);
     }
 }
-
