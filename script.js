@@ -26,7 +26,7 @@ function criarPersonagem() {
 }
 
 function validarPersonagem(personagem) {
-    while (personagem.nome.length < 3 || personagem.nome.length > 20 || !ehSomenteLetras(personagem.nome)) {
+    while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) {
         if (personagem.nome.length < 3) {
             alert('Nome de personagem muito curto...');
         } else if (personagem.nome.length > 20) {
@@ -36,7 +36,18 @@ function validarPersonagem(personagem) {
         }
         personagem.nome = prompt('Qual nome do seu personagem?');
     }
-
+    function validarPersonagem(personagem) {
+        while (personagem.nome.length < 3 || personagem.nome.length > 20 || !soLetras(personagem.nome)) {
+            if (personagem.nome.length < 3) {
+                alert('Nome de personagem muito curto...');
+            } else if (personagem.nome.length > 20) {
+                alert('Que nome grandão, prefiro menores...');
+            } else {
+                alert('O nome deve conter apenas letras.');
+            }
+            personagem.nome = prompt('Qual nome do seu personagem?');
+        }
+    }
     while (personagem.vida < 1 || personagem.vida > 20) {
         if (personagem.vida < 1) {
             alert('Poucos corações de vida, tente um número maior...');
@@ -48,9 +59,9 @@ function validarPersonagem(personagem) {
     }
     function ehSomenteLetras(nome) {
     for (let i = 0; i < nome.length; i++) {
-        const char = nome[i];
+        const crt = nome[i];
         // Verifica se o caractere não está entre A-Z e a-z
-        if (!(char >= 'A' && char <= 'Z') && !(char >= 'a' && char <= 'z') && char !== ' ') {
+        if (!(crt >= 'A' && crt <= 'Z') && !(crt >= 'a' && crt <= 'z') && crt !== ' ') {
             return false;
         }
     }
