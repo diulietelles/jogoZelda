@@ -57,7 +57,7 @@ function validarPersonagem(personagem) {
             personagem.vida = Number(prompt('Quanto de vida seu personagem vai ter?'));
         }
     }
-    function ehSomenteLetras(nome) {
+    function soLetras(nome) {
     for (let i = 0; i < nome.length; i++) {
         const crt = nome[i];
         // Verifica se o caractere não está entre A-Z e a-z
